@@ -1,0 +1,310 @@
+class	is_sparse
+air conditioning noise	n
+air horn	n
+airplane	n
+airplane flyby	n
+alarm clock ringing	n
+alligators, crocodiles hissing	n
+ambulance siren	n
+arc welding	n
+baby babbling	n
+baby crying	n
+baby laughter	n
+baltimore oriole calling	n
+barn swallow calling	n
+basketball bounce	n
+bathroom ventilation fan running	n
+beat boxing	n
+bee, wasp, etc. buzzing	n
+bird chirping, tweeting	n
+bird squawking	n
+bird wings flapping	n
+black capped chickadee calling	n
+blowtorch igniting	n
+bouncing on trampoline	n
+bowling impact	n
+bull bellowing	n
+canary calling	n
+cap gun shooting	n
+car engine idling	n
+car engine knocking	n
+car engine starting	n
+car passing by	n
+cat caterwauling	n
+cat growling	n
+cat hissing	n
+cat meowing	n
+cat purring	n
+cattle mooing	n
+cattle, bovinae cowbell	n
+cell phone buzzing	n
+chainsawing trees	n
+cheetah chirrup	n
+chicken clucking	n
+chicken crowing	n
+child singing	n
+child speech, kid speaking	n
+children shouting	n
+chimpanzee pant-hooting	n
+chinchilla barking	n
+chipmunk chirping	n
+chopping food	n
+chopping wood	y
+church bell ringing	n
+civil defense siren	n
+cow lowing	n
+coyote howling	n
+cricket chirping	n
+crow cawing	n
+cuckoo bird calling	n
+cupboard opening or closing	n
+cutting hair with electric trimmers	n
+dinosaurs bellowing	n
+disc scratching	n
+dog barking	y
+dog baying	n
+dog bow-wow	n
+dog growling	n
+dog howling	n
+dog whimpering	n
+donkey, ass braying	n
+door slamming	n
+driving buses	n
+driving motorcycle	n
+driving snowmobile	n
+duck quacking	n
+eagle screaming	n
+eating with cutlery	n
+electric grinder grinding	n
+electric shaver, electric razor shaving	n
+elephant trumpeting	n
+eletric blender running	n
+elk bugling	n
+engine accelerating, revving, vroom	n
+female singing	n
+female speech, woman speaking	n
+ferret dooking	n
+fire crackling	n
+fire truck siren	n
+fireworks banging	n
+firing cannon	n
+firing muskets	n
+fly, housefly buzzing	n
+foghorn	n
+footsteps on snow	n
+forging swords	n
+fox barking	n
+francolin calling	n
+frog croaking	n
+gibbon howling	n
+goat bleating	n
+golf driving	n
+goose honking	n
+hail	n
+hair dryer drying	n
+hammering nails	y
+heart sounds, heartbeat	n
+hedge trimmer running	n
+helicopter	n
+horse clip-clop	n
+horse neighing	n
+ice cracking	y
+ice cream truck, ice cream van	n
+lathe spinning	n
+lawn mowing	n
+lighting firecrackers	n
+lions growling	n
+lions roaring	y
+lip smacking	n
+machine gun shooting	n
+magpie calling	n
+male singing	n
+male speech, man speaking	n
+metronome	n
+missile launch	n
+mosquito buzzing	n
+motorboat, speedboat acceleration	n
+mouse clicking	n
+mouse pattering	n
+mouse squeaking	n
+mynah bird singing	n
+ocean burbling	n
+opening or closing car doors	n
+opening or closing car electric windows	n
+opening or closing drawers	n
+orchestra	n
+otter growling	n
+owl hooting	n
+parrot talking	n
+penguins braying	n
+people babbling	n
+people battle cry	n
+people belly laughing	n
+people booing	n
+people burping	n
+people cheering	n
+people clapping	n
+people coughing	n
+people crowd	n
+people eating	n
+people eating apple	y
+people eating crisps	y
+people eating noodle	n
+people farting	n
+people finger snapping	n
+people gargling	n
+people giggling	n
+people hiccup	n
+people running	n
+people humming	n
+people marching	n
+people nose blowing	n
+people screaming	n
+people shuffling	n
+people slapping	n
+people slurping	n
+people sneezing	y
+people sniggering	n
+people sobbing	n
+people whispering	n
+people whistling	n
+pheasant crowing	n
+pig oinking	n
+pigeon, dove cooing	n
+planing timber	n
+plastic bottle crushing	n
+playing accordion	n
+playing acoustic guitar	n
+playing badminton	y
+playing bagpipes	n
+playing banjo	n
+playing bass drum	n
+playing bass guitar	n
+playing bassoon	n
+playing bongo	n
+playing bugle	n
+playing castanets	n
+playing cello	n
+playing clarinet	n
+playing congas	n
+playing cornet	n
+playing cymbal	n
+playing darts	n
+playing didgeridoo	n
+playing djembe	n
+playing double bass	n
+playing drum kit	n
+playing electric guitar	n
+playing electronic organ	n
+playing erhu	n
+playing flute	n
+playing french horn	n
+playing glockenspiel	n
+playing gong	n
+playing guiro	n
+playing hammond organ	n
+playing harmonica	n
+playing harp	n
+playing harpsichord	n
+playing hockey	n
+playing lacrosse	n
+playing mandolin	n
+playing marimba, xylophone	n
+playing oboe	n
+playing piano	n
+playing saxophone	n
+playing shofar	n
+playing sitar	n
+playing snare drum	n
+playing squash	n
+playing steel guitar, slide guitar	n
+playing steelpan	n
+playing synthesizer	n
+playing tabla	n
+playing table tennis	n
+playing tambourine	n
+playing tennis	y
+playing theremin	n
+playing timbales	n
+playing timpani	n
+playing trombone	n
+playing trumpet	n
+playing tuning fork	n
+playing tympani	n
+playing ukulele	n
+playing vibraphone	n
+playing violin, fiddle	n
+playing volleyball	n
+playing washboard	n
+playing zither	n
+police car (siren)	n
+police radio chatter	n
+popping popcorn	n
+printer printing	n
+pumping water	n
+race car, auto racing	n
+railroad car, train wagon	n
+raining	n
+rapping	n
+reversing beeps	n
+ripping paper	n
+roller coaster running	n
+rope skipping	n
+rowboat, canoe, kayak rowing	n
+running electric fan	n
+sailing	n
+scuba diving	n
+sea lion barking	n
+sea waves	n
+sharpen knife	n
+sheep bleating	n
+shot football	n
+singing bowl	n
+singing choir	n
+skateboarding	y
+skidding	n
+skiing	n
+sliding door	n
+sloshing water	n
+slot machine	n
+smoke detector beeping	n
+snake hissing	n
+snake rattling	n
+splashing water	n
+spraying water	n
+squishing water	n
+stream burbling	n
+strike lighter	n
+striking bowling	y
+striking pool	n
+subway, metro, underground	n
+swimming	n
+tap dancing	n
+tapping guitar	n
+telephone bell ringing	n
+thunder	n
+toilet flushing	n
+tornado roaring	n
+tractor digging	n
+train horning	n
+train wheels squealing	n
+train whistling	n
+turkey gobbling	n
+typing on computer keyboard	n
+typing on typewriter	n
+underwater bubbling	n
+using sewing machines	n
+vacuum cleaner cleaning floors	n
+vehicle horn, car horn, honking	n
+volcano explosion	n
+warbler chirping	n
+waterfall burbling	n
+whale calling	n
+wind chime	n
+wind noise	n
+wind rustling leaves	n
+wood thrush calling	n
+woodpecker pecking tree	n
+writing on blackboard with chalk	n
+yodelling	n
+zebra braying	n

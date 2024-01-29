@@ -1,0 +1,11 @@
+__pycache__
+sbatch_logs
+logs
+wandb
+misc
+misc_backup
+todel.py
+temp
+*.pyth
+todel
+.vscode
