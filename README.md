@@ -15,6 +15,8 @@
 <!-- • [[BMVC Proceedings](https://bmvc2022.mpi-inf.mpg.de/395/)] -->
 <!-- • [[Presentation (spotlight)](https://www.youtube.com/watch?v=DKNNQ54zkIw)] • -->
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/v-iashin/Synchformer/blob/main/example.ipynb)
+
 
 <img src="./_repo_assets/main.png" alt="Synchformer Architecture" width="900">
 
