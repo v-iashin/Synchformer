@@ -11,7 +11,7 @@
 ```
 
 • [[Project Page](https://www.robots.ox.ac.uk/~vgg/research/synchformer/)]
-• [[Paper (short)](https://www.robots.ox.ac.uk/~vgg/publications/2024/Iashin24a/iashin24a.pdf)] •
+• [[arXiv](https://arxiv.org/abs/2401.16423)] •
 <!-- • [[BMVC Proceedings](https://bmvc2022.mpi-inf.mpg.de/395/)] -->
 <!-- • [[Presentation (spotlight)](https://www.youtube.com/watch?v=DKNNQ54zkIw)] • -->
 
