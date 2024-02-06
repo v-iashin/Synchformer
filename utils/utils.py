@@ -27,15 +27,6 @@ FNAME2LINK = {
     # S2: Synchformer: VGS (run 2)
     '24-01-02T10-00-53.pt': f'{PARENT_LINK}/sync/sync_models/24-01-02T10-00-53/24-01-02T10-00-53.pt',
     'cfg-24-01-02T10-00-53.yaml': f'{PARENT_LINK}/sync/sync_models/24-01-02T10-00-53/cfg-24-01-02T10-00-53.yaml',
-    # S1: AudioSet (run 2)
-    '23-12-22T16-13-38.pt': f'{PARENT_LINK}/sync/sync_models/23-12-22T16-13-38/checkpoints/epoch_best.pt',
-    'cfg-23-12-22T16-13-38.yaml': f'{PARENT_LINK}/sync/sync_models/23-12-22T16-13-38/cfg-23-12-22T16-13-38.yaml',
-    # S1: VGS (run 2)
-    '23-12-22T16-10-50.pt': f'{PARENT_LINK}/sync/sync_models/23-12-22T16-10-50/checkpoints/epoch_best.pt',
-    'cfg-23-12-22T16-10-50.yaml': f'{PARENT_LINK}/sync/sync_models/23-12-22T16-10-50/cfg-23-12-22T16-10-50.yaml',
-    # S1: LRS3 (run 2)
-    '23-12-22T16-04-18.pt': f'{PARENT_LINK}/sync/sync_models/23-12-22T16-04-18/checkpoints/epoch_best.pt',
-    'cfg-23-12-22T16-04-18.yaml': f'{PARENT_LINK}/sync/sync_models/23-12-22T16-04-18/cfg-23-12-22T16-04-18.yaml',
     # SparseSync: ft VGGSound-Full
     '22-09-21T21-00-52.pt': f'{PARENT_LINK}/sync/sync_models/22-09-21T21-00-52/22-09-21T21-00-52.pt',
     'cfg-22-09-21T21-00-52.yaml': f'{PARENT_LINK}/sync/sync_models/22-09-21T21-00-52/cfg-22-09-21T21-00-52.yaml',
