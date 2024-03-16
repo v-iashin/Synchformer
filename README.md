@@ -27,10 +27,10 @@ Finally, the synchronization module inputs the concatenated sequence of audio an
 We call our model Synchformer.
 
 - [Synchformer: Efficient Synchronization from Sparse Cues](#synchformer-efficient-synchronization-from-sparse-cues)
-  - [Environment Preparation](#environment-preparation)
+  - [Install](#install)
   - [Examples](#examples)
   - [Pre-trained Models](#pre-trained-models)
-    - [Audio-visual synchronization modules](#audio-visual-synchronization-modules)
+    - [Audio-visual synchronization models](#audio-visual-synchronization-models)
     - [Segment-level feature extractors](#segment-level-feature-extractors)
     - [Synchronizability prediction](#synchronizability-prediction)
   - [Training](#training)
@@ -44,17 +44,18 @@ We call our model Synchformer.
   - [Acknowledgements](#acknowledgements)
 
 
-## Environment Preparation
+## Install
 During experimentation, we used Linux machines with a (mini)`conda` virtual environment.
-We tested our model on both Nvidia (CUDA 11.8) and AMD (ROCm 5.4.2) GPUs.
-The inference code should work for both.
+We tested our model on both Nvidia (CUDA 11.8) and AMD (ROCm 5.4.2) GPUs,
+and the inference code should work for both.
 
-The CUDA environment could be installed with,
+To install CUDA environment, run the following,
 ```bash
 conda env create -f conda_env.yml
 # conda activate synchformer
 ```
-you may use `conda_env_for_AMD_ROCm` if you have capable AMD GPUs.
+
+If you have a capable AMD GPU, you need to replace the `conda_env.yml` with `conda_env_for_AMD_CUDA.yml`.
 
 
 ## Examples
@@ -91,7 +92,10 @@ python example.py \
 
 ## Pre-trained Models
 
-### Audio-visual synchronization modules
+### Audio-visual synchronization models
+
+Below are the pre-trained synchronization models.
+If you need the feature extractors' weights, see the [segment-level feature extractors](#segment-level-feature-extractors) section.
 
 | CKPT ID | S1 train dataset | S2 train dataset | Test dataset | Acc@1 / Acc@1 ±1 cls | |
 | --- | --- | ---  | --- | --- | --- |
@@ -99,17 +103,16 @@ python example.py \
 | `24-01-02T10-00-53` | VGGSound            |            VGGSound |     VGGSound-Sparse | 43.8 / 60.2 | [config](https://a3s.fi/swift/v1/AUTH_a235c0f452d648828f745589cde1219a/sync/sync_models/24-01-02T10-00-53/cfg-24-01-02T10-00-53.yaml) / [ckpt](https://a3s.fi/swift/v1/AUTH_a235c0f452d648828f745589cde1219a/sync/sync_models/24-01-02T10-00-53/24-01-02T10-00-53.pt) (md5: `19592ed...`) |
 | `24-01-04T16-39-21` | AudioSet            |            AudioSet |     VGGSound-Sparse | 47.2 / 67.4 | [config](https://a3s.fi/swift/v1/AUTH_a235c0f452d648828f745589cde1219a/sync/sync_models/24-01-04T16-39-21/cfg-24-01-04T16-39-21.yaml) / [ckpt](https://a3s.fi/swift/v1/AUTH_a235c0f452d648828f745589cde1219a/sync/sync_models/24-01-04T16-39-21/24-01-04T16-39-21.pt) (md5: `54037d2...`) |
 
-The metric is Accuracy@1 / Accuracy@1 ±1 class
+The metric is Accuracy@1 / Accuracy@1 ±1 class.
 Note that the numbers on the metric vary slightly and are better than in the paper.
-For the paper, we averaged the performance across multiple _training_ runs from scratch to get a more robust estimate.
-(Also, see the note on the reproducibility.)
-
-The checkpoint already contains the feature extractors' weights, so you don't need to download them separately.
+The numbers in the paper are the average performance across multiple _training_
+runs from scratch (including these) --
+for details see the note on the reproducibility in the supplementary material.
 
 ### Segment-level feature extractors
 
-If you want to play with pre-trained feature extractors, you may download the weights of the feature extractors
-from the following links,
+If you want to play with pre-trained feature extractors separately,
+you may download them using the following links,
 | CKPT ID | Train dataset | |
 | --- | --- | --- |
 | `23-12-22T16-04-18` | LRS3 ('Full Scene') | [config](https://a3s.fi/swift/v1/AUTH_a235c0f452d648828f745589cde1219a/sync/sync_models/23-12-22T16-04-18/cfg-23-12-22T16-04-18.yaml) / [ckpt](https://a3s.fi/swift/v1/AUTH_a235c0f452d648828f745589cde1219a/sync/sync_models/23-12-22T16-04-18/checkpoints/epoch_best.pt) (md5: `20b6e55...`) |
@@ -119,13 +122,17 @@ from the following links,
 
 The checkpoint files contain weights from both the audio and visual feature extractors and will match the
 state of `AVCLIP` in `./model/modules/feat_extractors/train_clip_src/open_clip/model.py`.
-To get the weight of a single feature extractor, you may need to filter the keys (to save your time see
-the feature extractors' `__init__` methods and `if was_pt_on_avclip: ...` in particular)
+To get the weights of the audio or visual feature extractor separately,
+you may need to filter the keys.
+To save your time, see
+the code for feature extractors' `__init__` methods after the line
+`if was_pt_on_avclip: ...` in particular.
 
 
 ### Synchronizability prediction
 
 The synchronizability model is fine-tuned from the synchronization model.
+The checkpoint is available at the following link,
 
 | CKPT ID | Train dataset | Test dataset | Acc@1 | AUCROC | |
 | --- | --- | --- | --- | --- | --- |
@@ -141,7 +148,10 @@ The synchronization models are trained in two stages:
 
 ### Prepare Data
 
-We follow the procedure of [SparseSync](https://github.com/v-iashin/SparseSync).
+We follow the data preparation procedure of
+[SparseSync](https://github.com/v-iashin/SparseSync).
+For LRS3 and VGGSound datasets, please refer to that the details
+[how to prepare the data in SparseSync repo](https://github.com/v-iashin/SparseSync?tab=readme-ov-file#prepare-data).
 AudioSet is processed similarly to VGGSound.
 
 ### Segment-level audio-visual contrastive pre-training of feature extractors
@@ -168,6 +178,12 @@ or `data.dataset.target=dataset.vggsound.VGGSound`.
 Note, the LRS3 model was trained with `learning_rate=0.00005` and without audio-visual augmentation, ie.
 see config of the `23-12-23T18-33-57` experiment.
 
+This stage requires a GPU with high memory capacity, so if you running into issues with OOM, you may try dropping batch size per GPU to 1 (from 2),
+lowering `n_segments` (mind the `run_shifted_win_val_winsize`), or reusing the pre-trained weights.
+We trained this stage on 4 nodes with 4 (8) AMD Instinct MI250 GPUs
+for 10 hours (30 epochs) on LRS3 (but decent results after 1 hour), 24 hours on VGGSound (20 epochs),
+12 days (28 epochs) on AudioSet (loss didn't saturate).
+
 To resume training, run the following,
 ```bash
 CKPT_ID="xx-xx-xxTxx-xx-xx"  # replace this with the exp folder name
@@ -189,19 +205,14 @@ Then, we average the accuracy over all the rows.
 
 <img src="./_repo_assets/windows.gif" alt="Animation showing the evaluation approach" width="800">
 
-In addition, we keep an eye on the individual segment similarity matrix (computed in `log_sim_matrices()` for an example from LRS3):
+In addition, we keep an eye on the individual segment similarity matrix (computed in `log_sim_matrices()`).
+An example from LRS3:
 
 <img src="./_repo_assets/vis_sim.png" alt="Four similarity matrices: v2a a2v a2a and v2v" width="300">
 
 The brighter the value in a matrix, the higher the similarity between the corresponding segments.
 For the `v2a`, each row corresponds to a visual segment, and each column corresponds to an audio segment.
 This results in a square matrix with the side size: `n_segments * batch_size`.
-
-This stage requires a GPU with high memory capacity, so we recommend dropping batch size per GPU to 1 (from 2),
-lowering `n_segments` (and `run_shifted_win_val_winsize`), or reusing the pre-trained weights.
-We trained this stage on 4 nodes with 4 (8) AMD Instinct MI250 GPUs
-for 10 hours (30 epochs) on LRS3 (but decent results after 1 hour), 24 hours on VGGSound (20 epochs),
-12 days (28 epochs) on AudioSet (loss didn't saturate).
 
 ### Audio-visual synchronization module training
 
@@ -219,6 +230,8 @@ python main.py \
     model.params.afeat_extractor.params.ckpt_path="/path/to/logging_dir/${S1_CKPT_ID}/checkpoints/epoch_${EPOCH}.pt" \
     training.base_batch_size=16
 ```
+To use our pre-trained feature extractors, replace the `ckpt_path` arguments with the paths to the downloaded checkpoint.
+
 To train on AudioSet or VGGSound, replace the `vids_path` and dataset target
 `data.dataset.target=dataset.audioset.AudioSet`
 or `data.dataset.target=dataset.vggsound.VGGSound`.
@@ -254,6 +267,8 @@ We fine-tune the synchronization model for the task of synchronizability.
 In particular, we fine-tune ('unfreeze') the stage II model and
 replace the 21-class classification head with a 2-class classification head.
 
+To fine-tune the synchronization model for the task of synchronizability, run the following,
+
 ```bash
 S2_CKPT_ID="xx-xx-xxTxx-xx-xx"  # replace this with an exp folder name
 
@@ -285,16 +300,18 @@ python main.py \
     logging.log_code_state=False \
     logging.use_wandb=False
 ```
-If you want to test the `S2_CKPT_ID` on a different dataset (e.g. the manually cleaned VGGSound Sparse),
-tweak and add the `data.dataset.target` argument (e.g. to `dataset.vggsound.VGGSoundSparsePickedCleanTestFixedOffsets`).
+If you want to test the `S2_CKPT_ID` on a different dataset,
+add the `data.dataset.target` argument
+(e.g. for the manually cleaned VGGSound Sparse `data.dataset.target=dataset.vggsound.VGGSoundSparsePickedCleanTestFixedOffsets`).
 By default, it will evaluate on the test set of the training dataset (different video IDs).
 
-Following our [previous work](https://github.com/v-iashin/SparseSync), we run evaluation with `data.iter_times` > 1
+Following [previous work](https://github.com/v-iashin/SparseSync),
+we run evaluation with `data.iter_times` > 1
 and `data.dataset.params.load_fixed_offsets_on="[]"` on small datasets to allow for a more robust estimate of model performance.
 For instance, for LRS3 we use `data.iter_times="2"`, for VGGSound-Sparse we use `data.iter_times="25"`.
 Please replace the above accordingly.
-Note that `dataset.vggsound.VGGSoundSparsePickedCleanTestFixedOffsets` has fixed offsets, so we don't need to
-run multiple iterations.
+Note that `dataset.vggsound.VGGSoundSparsePickedCleanTestFixedOffsets`
+has fixed offsets, so we can't run multiple iterations.
 
 ### Synchronizability
 To evaluate the synchronizability, run the following,
