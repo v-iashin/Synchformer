@@ -166,6 +166,7 @@ python ./main.py \
      training.base_batch_size=2
 
 # add `logging.use_wandb=True` for logging to wandb
+# Also see ./scripts/sbatch_*.sh for the batch job submission scripts
 ```
 It will download pre-trained models
 ([AST](https://huggingface.co/docs/transformers/model_doc/audio-spectrogram-transformer)
@@ -229,6 +230,8 @@ python main.py \
     model.params.vfeat_extractor.params.ckpt_path="/path/to/logging_dir/${S1_CKPT_ID}/checkpoints/epoch_${EPOCH}.pt" \
     model.params.afeat_extractor.params.ckpt_path="/path/to/logging_dir/${S1_CKPT_ID}/checkpoints/epoch_${EPOCH}.pt" \
     training.base_batch_size=16
+
+# Also see ./scripts/sbatch_*.sh for the batch job submission scripts
 ```
 To use our pre-trained feature extractors, replace the `ckpt_path` arguments with the paths to the downloaded checkpoint.
 
@@ -291,17 +294,26 @@ To evaluation the performance of the synchronization model, run the following,
 # experiment id from `./logs/sync_models/xx-xx-xxTxx-xx-xx`
 S2_CKPT_ID="xx-xx-xxTxx-xx-xx"
 
-python main.py \
+torchrun --standalone --nnodes=1 --nproc-per-node=1 --master_addr=localhost --master_port=1234 \
+main.py \
     config="/path/to/logging_dir/$S2_CKPT_ID/cfg-$S2_CKPT_ID.yaml" \
+    ckpt_path="/path/to/logging_dir/$S2_CKPT_ID/$S2_CKPT_ID.pt" \
+    logging.logdir="/path/to/logging_dir" \
     training.finetune="False" \
     training.run_test_only="True" \
     data.iter_times="5" \
     data.dataset.params.load_fixed_offsets_on="[]" \
     logging.log_code_state=False \
+    model.params.afeat_extractor.params.ckpt_path=null \
+    model.params.vfeat_extractor.params.ckpt_path=null \
+    training.base_batch_size=8 \
+    logging.log_frequency=4 \
     logging.use_wandb=False
 ```
-If you want to test the `S2_CKPT_ID` on a different dataset,
-add the `data.dataset.target` argument
+Note, the `a/vfeat_extractor` paths are set to `null`, because they are included in the synchronization model checkpoint,
+and we don't need to load them twice.
+
+If you want to test the `S2_CKPT_ID` on a different dataset, add the `data.dataset.target` argument
 (e.g. for the manually cleaned VGGSound Sparse `data.dataset.target=dataset.vggsound.VGGSoundSparsePickedCleanTestFixedOffsets`).
 By default, it will evaluate on the test set of the training dataset (different video IDs).
 
@@ -319,9 +331,11 @@ To evaluate the synchronizability, run the following,
 ```bash
 S3_CKPT_ID="xx-xx-xxTxx-xx-xx"
 
-python ./scripts/test_syncability.py \
+torchrun --standalone --nnodes=1 --nproc-per-node=1 --master_addr=localhost --master_port=1234 \
+scripts/test_syncability.py \
     config_sync="/path/to/logging_dir/${S3_CKPT_ID}/cfg-${S3_CKPT_ID}.yaml" \
     ckpt_path_sync="/path/to/logging_dir/${S3_CKPT_ID}/${S3_CKPT_ID}_best.pt" \
+    logging.logdir="/path/to/logging_dir" \
     training.finetune=False \
     training.run_test_only=True \
     data.dataset.target=dataset.vggsound.VGGSoundSparsePickedCleanTest \
@@ -330,8 +344,14 @@ python ./scripts/test_syncability.py \
     data.dataset.params.iter_times=25 \
     data.dataset.params.load_fixed_offsets_on="[]" \
     logging.log_code_state=False \
+    model.params.afeat_extractor.params.ckpt_path=null \
+    model.params.vfeat_extractor.params.ckpt_path=null \
+    training.base_batch_size=8 \
+    logging.log_frequency=4 \
     logging.use_wandb=False
 ```
+Note, the `a/vfeat_extractor` paths are set to `null`, because they are included in the synchronization model checkpoint,
+and we don't need to load them twice.
 
 if you like to evaluate how well the synchronization model performs across
 different synchronizability thresholds (Figure 4, right). Specify the `config_off` and `ckpt_path_off` arguments (with paths to the synchronization model).
