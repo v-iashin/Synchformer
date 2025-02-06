@@ -52,7 +52,11 @@ and the inference code should work for both.
 To install CUDA environment, run the following,
 ```bash
 conda env create -f conda_env.yml
-# conda activate synchformer
+# check the installation, if `av` is > 9.0.0, you may need to downgrade to reproduce the results
+conda activate synchformer
+conda list av
+# # Name                    Version                   Build  Channel
+# av                        9.0.0                    pypi_0    pypi
 ```
 
 If you have a capable AMD GPU, you need to replace the `conda_env.yml` with `conda_env_for_AMD_CUDA.yml`.
@@ -75,6 +79,8 @@ python example.py \
 # p=0.8076 (11.5469), "1.60" (18)
 # ...
 ```
+NOTE: if you are getting `p=0.9482 (12.1250), "1.60" (18)`, you need to downgrade `av` to `8.1.0` (if you can't install it, try `9.0.0`).
+See [Issue #11](https://github.com/v-iashin/Synchformer/issues/11) for context.
 
 Making the audio track lag is also straightforward and can be achieved with a negative offset (note that we need to start the visual track later to accommodate the earlier start of the audio track):
 ```bash
@@ -88,7 +94,8 @@ python example.py \
 # p=0.8291 (12.7734), "-2.00" (0)
 # ...
 ```
-
+NOTE: if you are getting `p=0.7129 (11.8047), "-2.00" (0)`, you need to downgrade `av` to `8.1.0` (if you can't install it, try `9.0.0`).
+See [Issue #11](https://github.com/v-iashin/Synchformer/issues/11) for context.
 
 ## Pre-trained Models
 
@@ -165,8 +172,9 @@ python ./main.py \
      data.dataset.target=dataset.lrs.LRS3 \
      training.base_batch_size=2
 
-# add `logging.use_wandb=True` for logging to wandb
-# Also see ./scripts/sbatch_*.sh for the batch job submission scripts
+# - add `logging.use_wandb=True` for logging to wandb
+# - see ./scripts/sbatch_*.sh for the batch job submission scripts
+# - if training in DDP hangs after an epoch, downgrade `av` to `8.1.0` (see Issue #11 for context).
 ```
 It will download pre-trained models
 ([AST](https://huggingface.co/docs/transformers/model_doc/audio-spectrogram-transformer)
@@ -231,7 +239,8 @@ python main.py \
     model.params.afeat_extractor.params.ckpt_path="/path/to/logging_dir/${S1_CKPT_ID}/checkpoints/epoch_${EPOCH}.pt" \
     training.base_batch_size=16
 
-# Also see ./scripts/sbatch_*.sh for the batch job submission scripts
+# - Also see ./scripts/sbatch_*.sh for the batch job submission scripts
+# - If training in DDP hangs after an epoch, downgrade `av` to `8.1.0` (see Issue #11 for context).
 ```
 To use our pre-trained feature extractors, replace the `ckpt_path` arguments with the paths to the downloaded checkpoint.
 
@@ -284,6 +293,8 @@ python main.py \
     data.vids_path=/path/to/audioset/h264_video_25fps_256side_16000hz_aac/ \
     logging.logdir=/path/to/logging_dir/ \
     # logging.use_wandb=True
+
+# - If training in DDP hangs after an epoch, downgrade `av` to `8.1.0` (see Issue #11 for context).
 ```
 
 ## Evalution
@@ -309,6 +320,8 @@ main.py \
     training.base_batch_size=8 \
     logging.log_frequency=4 \
     logging.use_wandb=False
+
+# - if the numbers for accuracy_1 is significantly lower, downgrade `av` to `8.1.0` or `9.0.0` (see Issue #11 for context).
 ```
 Note, the `a/vfeat_extractor` paths are set to `null`, because they are included in the synchronization model checkpoint,
 and we don't need to load them twice.
