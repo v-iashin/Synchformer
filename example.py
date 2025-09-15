@@ -130,7 +130,7 @@ def main(args):
 
     # load the model
     _, model = get_model(cfg, device)
-    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'))
+    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'), weights_only=False)
     model.load_state_dict(ckpt['model'])
     model.eval()
 
